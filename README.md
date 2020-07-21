@@ -66,8 +66,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-### Bootstrap Database as container for development
-
-docker run --name andrewsql -p 3306:3306 -d -e MYSQL_ROOT_PASSWORD=sqlrecipe <image name>
-SchemaName: Grocery_Schema
