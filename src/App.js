@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="relative pb-10 min-h-screen">
       <Router>
-        <Header appName="AJR Investments" />
+        <Header appName="My Recipes" />
 
         <div className="p-3">
           <Switch>
