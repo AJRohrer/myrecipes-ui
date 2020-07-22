@@ -5,9 +5,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Views/Home";
 import About from "./Views/About";
 import Product from "./Views/Product";
+import Login from "./Views/Login";
 
 //stateless component because it is a function
 function App() {
+  let apiHostUrl = "http://localhost:8090";
+
   return (
     <div className="relative pb-10 min-h-screen">
       <Router>
@@ -15,7 +18,10 @@ function App() {
 
         <div className="p-3">
           <Switch>
-            <Route exact path="/">
+            <Route path="/login">
+              <Login hostUrl={apiHostUrl} />
+            </Route>
+            <Route path="/recipehome">
               <Home />
             </Route>
             <Route path="/about">
