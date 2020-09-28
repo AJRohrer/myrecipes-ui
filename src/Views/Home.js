@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Loader from "../components/Loader";
 import RecipeCard from "../components/RecipeCard";
 import { useAxiosGet } from "../Hooks/HttpRequests";
@@ -25,6 +25,8 @@ function Home() {
       </div>
     ));
   }
+
+  //TODO: Add search capability to search for a recipe
 
   return (
     <div>

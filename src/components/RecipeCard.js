@@ -23,7 +23,7 @@ function RecipeCard(props) {
         href={`${props.recipe._RecipeUrl}`}
         className="bg-blue-500 text-white p-2 flex justify-center w-full"
       >
-        View
+        Go to site
       </a>
     </div>
   );

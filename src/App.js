@@ -9,8 +9,6 @@ import Login from "./Views/Login";
 
 //stateless component because it is a function
 function App() {
-  let apiHostUrl = "http://localhost:8090";
-
   return (
     <div className="relative pb-10 min-h-screen">
       <Router>
@@ -19,7 +17,7 @@ function App() {
         <div className="p-3">
           <Switch>
             <Route path="/login">
-              <Login hostUrl={apiHostUrl} />
+              <Login />
             </Route>
             <Route path="/recipehome">
               <Home />
