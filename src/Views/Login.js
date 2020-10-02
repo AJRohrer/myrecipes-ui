@@ -2,6 +2,7 @@ import React from "react";
 import RequiredInput from "../components/Login/RequiredInput";
 import PasswordInput from "../components/Login/PasswordInput";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Login extends React.Component {
   constructor() {
@@ -10,6 +11,7 @@ class Login extends React.Component {
       username: "",
       password: "",
       isLoggedIn: false,
+      userid: 1,
     };
   }
 
@@ -21,7 +23,11 @@ class Login extends React.Component {
     this.setState({ password: pw });
   }
 
-  SetIsLoggedIn() {
+  SetUserId(id) {
+    this.setState({ userid: id });
+  }
+
+  TryLogin() {
     axios
       .post("http://localhost:8090/login", {
         username: this.state.username,
@@ -42,6 +48,7 @@ class Login extends React.Component {
             {}
           );
         console.log(cookies["userID"]);
+        return cookies["userID"];
       })
       .catch((error) => {
         console.log("There was a login request error.");
@@ -52,14 +59,15 @@ class Login extends React.Component {
     return (
       <div>
         <RequiredInput onChange={this.SetUsername.bind(this)}></RequiredInput>
-        <div>{this.state.username}</div>
         <PasswordInput onChange={this.SetPassword.bind(this)}></PasswordInput>
-        <button
+        <Link
+          to={`/recipehome/${this.state.userid}`}
           className="bg-blue-500 text-white p-3 w-full"
-          onClick={this.SetIsLoggedIn.bind(this)}
+          onClick={this.TryLogin.bind(this)}
         >
+          {" "}
           Login
-        </button>
+        </Link>
       </div>
     );
   }

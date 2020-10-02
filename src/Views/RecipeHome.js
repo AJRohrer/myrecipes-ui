@@ -2,8 +2,10 @@ import React from "react";
 import Loader from "../components/Loader";
 import RecipeCard from "../components/RecipeCard";
 import { useAxiosGet } from "../Hooks/HttpRequests";
+import { useParams } from "react-router-dom";
 
-function Home() {
+function RecipeHome() {
+  const { userid } = useParams();
   const recipeurl = `http://localhost:8090/recipes/1`;
 
   let recipes = useAxiosGet(recipeurl);
@@ -11,14 +13,17 @@ function Home() {
   let content = null;
 
   if (recipes.error) {
+    console.log("got an error");
     content = <p>There was an error please refresh or try again later.</p>;
   }
 
   if (recipes.loading) {
+    console.log("still loading");
     content = <Loader></Loader>;
   }
 
   if (recipes.data) {
+    console.log("got a response");
     content = recipes.data.map((recipe, key) => (
       <div key={key}>
         <RecipeCard recipe={recipe} />
@@ -36,4 +41,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default RecipeHome;

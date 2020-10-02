@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./Views/Home";
+import RecipeHome from "./Views/RecipeHome";
 import About from "./Views/About";
 import Product from "./Views/Product";
 import Login from "./Views/Login";
@@ -19,8 +19,8 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/recipehome">
-              <Home />
+            <Route path="/recipehome/:userid">
+              <RecipeHome />
             </Route>
             <Route path="/about">
               <About />
