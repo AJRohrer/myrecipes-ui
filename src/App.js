@@ -19,7 +19,7 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/recipehome/:userid">
+            <Route path="/recipehome">
               <RecipeHome />
             </Route>
             <Route path="/about">

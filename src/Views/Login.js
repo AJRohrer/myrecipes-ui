@@ -35,23 +35,13 @@ class Login extends React.Component {
       })
       .then((response) => {
         console.log("Here is the response");
-        document.cookie = "userID=" + response.data;
-        var cookies = new Map();
-        cookies = document.cookie
-          .split(";")
-          .map((cookie) => cookie.split("="))
-          .reduce(
-            (accumulator, [key, value]) => ({
-              ...accumulator,
-              [key.trim()]: decodeURIComponent(value),
-            }),
-            {}
-          );
-        console.log(cookies["userID"]);
-        return cookies["userID"];
+
+        console.log("Userid = " + response.data);
+        document.cookie = "userid=" + response.data;
+        window.location.replace("/recipehome");
       })
       .catch((error) => {
-        console.log("There was a login request error.");
+        alert("Username and password don't match")
       });
   }
 
@@ -60,14 +50,13 @@ class Login extends React.Component {
       <div>
         <RequiredInput onChange={this.SetUsername.bind(this)}></RequiredInput>
         <PasswordInput onChange={this.SetPassword.bind(this)}></PasswordInput>
-        <Link
-          to={`/recipehome/${this.state.userid}`}
+        <button
           className="bg-blue-500 text-white p-3 w-full"
           onClick={this.TryLogin.bind(this)}
         >
           {" "}
           Login
-        </Link>
+        </button>
       </div>
     );
   }
