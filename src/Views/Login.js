@@ -2,7 +2,6 @@ import React from "react";
 import RequiredInput from "../components/Login/RequiredInput";
 import PasswordInput from "../components/Login/PasswordInput";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 class Login extends React.Component {
   constructor() {

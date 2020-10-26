@@ -1,5 +1,4 @@
 import React from "react";
-import Loader from "../components/Loader";
 import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
 
@@ -7,28 +6,32 @@ class RecipeHome extends React.Component {
   constructor() {
     super();
     this.state = {
-      recipes: this.getUserRecipes(),
-      content: <Loader></Loader>,
+      recipes: [],
     };
   }
 
-  getUserIdCookie = () => {
-    return 4;
+  getUserIdCookie(key){
+    return document.cookie
+    .split(";")
+    .map((cookie) => cookie.split("="))
+    .reduce(
+      (accumulator, [key, value]) => ({
+        ...accumulator,
+        [key.trim()]: decodeURIComponent(value),
+      }),
+      {}
+    )[key];;
   };
 
   componentDidMount() {
-    this.getUserRecipes();
-  }
-
-  getUserRecipes() {
-    console.log("this is the cookie data: " + this.getUserIdCookie());
+    console.log("testing");
+    console.log("UserId to request: " + this.getUserIdCookie("userid"));
     axios
-      .get("http://localhost:8090/recipes/2")
+      .get("http://localhost:8090/recipes/" + this.getUserIdCookie("userid"))
       .then((response) => {
-        console.log("Recipes captured" + response.data[0]._RecipeName);
-        document.cookie = "recipes=" + response.data;
-        this.buildContent();
-        return response;
+        console.log("Recipes captured " + response.data[0]._RecipeName);
+        this.setState({...this.state, recipes: [...response.data]});
+        console.log("Recipe data response for userID: " + this.getUserIdCookie("userid") + " | " + response);
       })
       .catch((error) => {
         console.log("There was a recipe request error.");
@@ -36,41 +39,28 @@ class RecipeHome extends React.Component {
   }
 
   buildContent() {
+    console.log("Entering buildContent()");
     this.content = this.recipes.data.map((recipe, key) => (
       <div key={key}>
         <RecipeCard recipe={recipe} />
       </div>
     ));
+    console.log("Content: " + this.content);
   }
 
-  // if (recipes.error) {
-  //   console.log("got an error");
-  //   content = <p>There was an error please refresh or try again later.</p>;
-  // }
-
-  // if (recipes.loading) {
-  //   console.log("still loading");
-  //   content = <Loader></Loader>;
-  // }
-
-  // if (recipes.data) {
-  //   console.log("got a response");
-  //   content = recipes.data.map((recipe, key) => (
-  //     <div key={key}>
-  //       <RecipeCard recipe={recipe} />
-  //     </div>
-  //   ));
-  // }
-
-  //TODO: Add search capability to search for a recipe
-
   render() {
-    return (
-      <div>
-        <h1 className="font-bold text-2xl">Recipes</h1>
-        {this.content}
-      </div>
-    );
+    console.log("These are the recipes: " + this.state.recipes.data);
+      return (
+        <div>
+          <h1 className="font-bold text-2xl">Recipes</h1>
+          {
+          this.state.recipes.data.map((recipe,key) => (
+              <div key={key}>
+                <RecipeCard recipe={recipe} />
+              </div>
+          ))};
+        </div>
+      );
   }
 }
 
